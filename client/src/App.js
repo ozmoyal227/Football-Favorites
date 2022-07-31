@@ -1,15 +1,33 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import constants from '../constants';
 
 function App() {
 
-  const [data, setData] = React.useState(false);
+  const [data, setData] = useState(false);
 
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.authorized));
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${constants.API_BASE_URL}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ user: 'mymy' })
+        });
+        const data = await res.json();
+        console.log(data);
+
+      } catch (error) {
+        console.log(error);
+      }
+
+      // .then((data) => setData(data.authorized));  
+    })();
   }, []);
+
+
 
   return (
     <div className="App">
