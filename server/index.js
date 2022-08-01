@@ -1,29 +1,27 @@
 require('dotenv').config();
 const express = require('express');
+const app = express();
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
-
-
-
 const PORT = process.env.PORT || 3001;
 
-const app = express();
-
 app.use(express.json());
+app.use(cors());
 
-app.get('/api', (req, res) => {
-    res.json({ authorized: true });
-});
 
+const generateAccessToken = (userId) => {
+    return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1800s" });
+}
+
+// API's
 
 app.post('/login', (req, res) => {
     //validation
 
     // here i want to authenticate user first
-    ;
 
     const fakeUser = req.body;
-    console.log(fakeUser);
-    const accessToken = jwt.sign(fakeUser, process.env.ACCESS_TOKEN_SECRET);
+    const accessToken = generateAccessToken(fakeUser.id);
     res.json({ accessToken: accessToken });
 
 })

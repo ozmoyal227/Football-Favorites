@@ -1,29 +1,32 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import constants from '../constants';
+import constants from './constants';
 
 function App() {
 
-  const [data, setData] = useState(false);
+  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`${constants.API_BASE_URL}/login`, {
+        const res = await fetch(`${constants.API_BASE_URL}login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ user: 'mymy' })
+          body: JSON.stringify({
+            username: 'happy',
+            password: '123456',
+            id: '111111'
+          })
         });
         const data = await res.json();
-        console.log(data);
+        setAuthorized(data ? true : false);
 
       } catch (error) {
         console.log(error);
       }
 
-      // .then((data) => setData(data.authorized));  
     })();
   }, []);
 
@@ -31,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <p>{!data ? "you are not authorized" : "you are authorized"}</p>
+      <p>{!authorized ? "you are not authorized" : "you are authorized"}</p>
     </div>
   );
 }
