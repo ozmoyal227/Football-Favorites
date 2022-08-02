@@ -5,9 +5,22 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 3001;
 
+// ---------testing db
+const dbOperations = require('./app/dbOperations');
+const User = require('./app/models/user');
+
+const user = new User(3, 'walla');
+// //add user
+dbOperations.addUser(user);
+
+//getting users
+dbOperations.getUsers().then(result => console.log('users:', result));
+
+const getUser = dbOperations.getUserById(user.id).then(result => console.log('user:', result));
+// ---------end testing
+
 app.use(express.json());
 app.use(cors());
-
 
 const generateAccessToken = (userId) => {
     return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1800s" });
