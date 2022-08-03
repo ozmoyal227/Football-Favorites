@@ -10,16 +10,26 @@ const dbOperations = require('./app/dbOperations');
 const User = require('./app/models/User');
 
 // delete table
-// dbOperations.dltTable();
-
-// const user = new User(3, 'oz', '[]');
+dbOperations.clearTable();
+const user1 = new User(2, 'poz', '[]');
+const user2 = new User(3, 'oz', '["123456", "789456"]');
 // //add user
-// dbOperations.addUser(user);
+dbOperations.addUser(user1);
+dbOperations.addUser(user2);
 
 //getting users
 dbOperations.getUsers().then(result => console.log('users:', result));
 
 // const getUser = dbOperations.getUserById(user.id).then(result => console.log('user:', result));
+
+//getting favTeams of user
+dbOperations.getFavTeams(3).then(result => console.log('favTeams:', result));
+
+//adding to user favTeams
+// dbOperations.addToFavTeams(2, '4444');
+dbOperations.getUsers().then(result => console.log('users:', result));
+
+
 // ---------end testing
 
 app.use(express.json());
