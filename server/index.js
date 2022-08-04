@@ -9,13 +9,16 @@ const PORT = process.env.PORT || 3001;
 const dbOperations = require('./app/dbOperations');
 const User = require('./app/models/User');
 
-// delete table
-dbOperations.clearTable();
-const user1 = new User(2, 'poz', '[]');
-const user2 = new User(3, 'oz', '["123456", "789456"]');
+// create table
+// dbOperations.createTable();
+
+// clear table data
+// dbOperations.clearTable();
+// const user1 = new User(1, 'poz', '[]', '["111111", "222222"]');
+// const user2 = new User(2, 'oz', '["123456", "789456"]', '[]');
 // //add user
-dbOperations.addUser(user1);
-dbOperations.addUser(user2);
+// dbOperations.addUser(user1);
+// dbOperations.addUser(user2);
 
 //getting users
 dbOperations.getUsers().then(result => console.log('users:', result));
@@ -23,12 +26,21 @@ dbOperations.getUsers().then(result => console.log('users:', result));
 // const getUser = dbOperations.getUserById(user.id).then(result => console.log('user:', result));
 
 //getting favTeams of user
-// dbOperations.getFavTeams(3).then(result => console.log('favTeams:', result));
+// dbOperations.getFavTeams(2).then(result => console.log('favTeams:', result));
 
-//adding to user favTeams
-dbOperations.addToFavTeams(2, '555555').then(
+//adding to user favTeams or favLeagues
+// dbOperations.addToFavTeams(1, '000000');
+// dbOperations.addToFavTeams(1, '555555');
+// dbOperations.addToFavLeagues(1, '333333');
+// dbOperations.addToFavLeagues(2, '44444').then(() => {
+//     dbOperations.getUsers().then(result => console.log('users:', result))
+// });
+
+dbOperations.rmvFromFavLeagues(1, '222222');
+dbOperations.rmvFromFavLeagues(2, '44444');
+dbOperations.rmvFromFavTeams(2, '123456').then(() => {
     dbOperations.getUsers().then(result => console.log('users:', result))
-);
+});
 
 
 
