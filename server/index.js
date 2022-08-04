@@ -23,11 +23,13 @@ dbOperations.getUsers().then(result => console.log('users:', result));
 // const getUser = dbOperations.getUserById(user.id).then(result => console.log('user:', result));
 
 //getting favTeams of user
-dbOperations.getFavTeams(3).then(result => console.log('favTeams:', result));
+// dbOperations.getFavTeams(3).then(result => console.log('favTeams:', result));
 
 //adding to user favTeams
-// dbOperations.addToFavTeams(2, '4444');
-dbOperations.getUsers().then(result => console.log('users:', result));
+dbOperations.addToFavTeams(2, '555555').then(
+    dbOperations.getUsers().then(result => console.log('users:', result))
+);
+
 
 
 // ---------end testing

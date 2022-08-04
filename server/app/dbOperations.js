@@ -62,22 +62,21 @@ const getFavTeams = async (userId) => {
 }
 
 // adding team id to favTeams of user (by user id)
-// const addToFavTeams = async (userId, teamId) => {
-//     try {
-//         let favTeams = getFavTeams(userId).then(result => result);
-//         console.log('sdsdsdsdsd', favTeams);
-//         favTeams.push(teamId);
-
-//         let pool = await sql.connect(config);
-//         let products = (await pool.request().query(
-//             `UPDATE Users 
-//                     SET favTeams = ${favToString(result)} 
-//                     WHERE id = ${userId}`
-//         ));
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+const addToFavTeams = async (userId, teamId) => {
+    try {
+        let favTeams = await getFavTeams(userId).then(result => result);
+        favTeams.push(teamId);
+        let pool = await sql.connect(config);
+        pool.request().query(
+            `UPDATE Users 
+            SET favTeams = '${favToString(favTeams)}'
+            WHERE id = ${userId}`
+        );
+        return;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const clearTable = async () => {
     try {
@@ -96,6 +95,6 @@ module.exports = {
     addUser,
     getUserById,
     clearTable,
-    // addToFavTeams,
+    addToFavTeams,
     getFavTeams
 };
