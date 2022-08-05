@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 3001;
 
 // ---------testing db
-const dbOperations = require('./app/dbOperations');
-const User = require('./app/models/User');
+// const dbOperations = require('./app/dbOperations');
+// const User = require('./app/models/User');
 
 // create table
 // dbOperations.createTable();
@@ -21,14 +21,14 @@ const User = require('./app/models/User');
 // dbOperations.addUser(user2);
 
 //getting users
-dbOperations.getUsers().then(result => console.log('users:', result));
+// dbOperations.getUsers().then(result => console.log('users:', result));
 
 // const getUser = dbOperations.getUserById(user.id).then(result => console.log('user:', result));
 
 //getting favTeams of user
 // dbOperations.getFavTeams(2).then(result => console.log('favTeams:', result));
 
-//adding to user favTeams or favLeagues
+//adding to user favTeams or favLeagues (wont working)
 // dbOperations.addToFavTeams(1, '000000');
 // dbOperations.addToFavTeams(1, '555555');
 // dbOperations.addToFavLeagues(1, '333333');
@@ -36,11 +36,11 @@ dbOperations.getUsers().then(result => console.log('users:', result));
 //     dbOperations.getUsers().then(result => console.log('users:', result))
 // });
 
-dbOperations.rmvFromFavLeagues(1, '222222');
-dbOperations.rmvFromFavLeagues(2, '44444');
-dbOperations.rmvFromFavTeams(2, '123456').then(() => {
-    dbOperations.getUsers().then(result => console.log('users:', result))
-});
+// dbOperations.rmvFromFavLeagues(1, '222222');
+// dbOperations.rmvFromFavLeagues(2, '44444');
+// dbOperations.rmvFromFavTeams(2, '123456').then(() => {
+//     dbOperations.getUsers().then(result => console.log('users:', result))
+// });
 
 
 
