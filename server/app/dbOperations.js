@@ -96,6 +96,21 @@ const getFavLeagues = async (userId) => {
     }
 }
 
+// get favLeagues of user by user id, returning array of leagues id(id as string)
+const getFav = async (userId) => {
+    try {
+        let pool = await sql.connect(config);
+        let products = (await pool.request().query(`SELECT favLeagues, favTeams from Users WHERE id=${userId}`)).recordset;
+        const fav = {
+            favTeams: favToJson(products[0].favTeams),
+            favLeagues: favToJson(products[0].favLeagues)
+        }
+        return fav;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // adding team id to favTeams of user (by user id)
 const addToFavTeams = async (userId, teamId) => {
     try {
@@ -188,5 +203,6 @@ module.exports = {
     getFavLeagues,
     rmvFromFavTeams,
     rmvFromFavLeagues,
+    getFav,
     // createTable
 };
