@@ -5,13 +5,23 @@ const sql = require('mssql');
 
 
 // const createTable = async () => {
-//     await sql.connect(config);
-//     const table = new sql.Table('Users');
-//     table.create = true;
-//     table.columns.add('id', sql.Int, { nullable: false, primary: true });
-//     table.columns.add('username', sql.VarChar(50), { nullable: false });
-//     table.columns.add('favTeams', sql.VarChar(100), { nullable: false });
-//     table.columns.add('favLeagues', sql.VarChar(100), { nullable: false });
+//     try {
+//         let pool = await sql.connect(config);
+//         // pool.request().query(
+//         //     'IF OBJECT_ID(Users) IS NOT NULL DROP TABLE Users'
+//         // );
+//         pool.request().query('CREATE TABLE IF NOT EXISTS [football_favorites.]Users(id INT NOT NULL PRIMARY KEY,username[NVARCHAR](50) NOT NULL,favTeams[NVARCHAR](100) NOT NULL),favLeagues[NVARCHAR](100) NOT NULL)');
+//     } catch (error) {
+//         console.log('error in create table:', error);
+//     }
+
+// await sql.connect(config);
+// const table = new sql.Table('Users');
+// table.create = true;
+// table.columns.add('id', sql.Int, { nullable: false, primary: true });
+// table.columns.add('username', sql.VarChar(50), { nullable: false });
+// table.columns.add('favTeams', sql.VarChar(100), { nullable: false });
+// table.columns.add('favLeagues', sql.VarChar(100), { nullable: false });
 // }
 
 
@@ -35,6 +45,7 @@ const getUsers = async () => {
         // updating the data type of user.favTeams back to array
         for (user of users) {
             user.favTeams = favToJson(user.favTeams);
+            user.favLeagues = favToJson(user.favLeagues);
         }
         return users;
     } catch (error) {
@@ -176,6 +187,6 @@ module.exports = {
     getFavTeams,
     getFavLeagues,
     rmvFromFavTeams,
-    rmvFromFavLeagues
+    rmvFromFavLeagues,
     // createTable
 };
