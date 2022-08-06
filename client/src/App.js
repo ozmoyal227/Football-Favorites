@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import constants from './constants';
+import Sidebar from './components/Sidebar';
 
 function App() {
 
@@ -9,7 +10,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`${constants.API_BASE_URL}login`, {
+        const res = await fetch(`${constants.API_BASE_URL}users`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -33,7 +34,9 @@ function App() {
 
 
   return (
+
     <div className="App">
+      <Sidebar />
       <p>{!authorized ? "you are not authorized" : "you are authorized"}</p>
     </div>
   );

@@ -67,7 +67,7 @@ const addUser = async (User) => {
     try {
         let pool = await sql.connect(config);
         let products = pool.request().query(`INSERT INTO Users VALUES
-        (${User.id}, '${User.name}', '${User.favTeams}', '${User.favLeagues}')`);
+        (${User.username}, '${User.password}', '${User.favTeams}', '${User.favLeagues}')`);
         return products;
     } catch (error) {
         console.log(error);

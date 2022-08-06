@@ -16,8 +16,8 @@ const User = require('./app/models/User');
 
 // clear table data
 dbOperations.clearTable();
-const user1 = new User(1, 'poz', '[]', '["111111", "222222"]');
-const user2 = new User(2, 'oz', '["123456", "789456"]', '[]');
+const user1 = new User('poz', '1234');
+const user2 = new User('oz', '1234');
 // //add user
 dbOperations.addUser(user1);
 dbOperations.addUser(user2);
