@@ -2,7 +2,35 @@ body {
     /* width: 100%; */
 }
 
-.App {
+/* 
+.header {
+    width: 100%;
+    height: 15%;
+} */
+
+.right-header {
+    background: green;
+    height: 80px;
+    width: 100%;
+}
+
+.user-circle {
+    background-color: aquamarine;
+    width: 200px;
+    height: 150px;
+    border-radius: 0% 0% 100% 100%;
+    position: absolute;
+
+}
+
+.dropdown-menu {
+    z-index: -1;
+    top: -80px !important;
+    padding-top: 100px;
+    width: 300px;
+}
+
+/* .App {
     width: 100%;
     display: flex;
 
@@ -11,4 +39,39 @@ body {
 .sidebar {
     height: 100vh;
     width: 15rem;
+} */
+
+
+@media (max-width: 680px) {
+    .user-circle {
+        width: 175px;
+        height: 125px;
+    }
+
+    .right-header {
+        height: 70px;
+    }
+}
+
+@media (max-width: 450px) {
+    .user-circle {
+        width: 150px;
+        height: 120px;
+    }
+
+    .right-header {
+        height: 65px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .user-circle {
+        width: 125px;
+        height: 110px;
+    }
+
+    .right-header {
+        height: 70px;
+    }
 }

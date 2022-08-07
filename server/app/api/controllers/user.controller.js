@@ -1,7 +1,7 @@
 
 
 const { user } = require('../../config/db.config');
-const dbOperations = require('../../dbOperations');
+const dbOperations = require('../../database/dbOperations');
 
 const getAllUsers = async (req, res, next) => {
     try {

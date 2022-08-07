@@ -3,24 +3,20 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 3001;
 const routes = require('./app/api/routes');
 
+
 // ---------testing db
-const dbOperations = require('./app/dbOperations');
+const dbOperations = require('./app/database/dbOperations');
 const User = require('./app/models/User');
 
 // create table
 // dbOperations.createTable();
 
 // clear table data
-dbOperations.clearTable();
-const user1 = new User('poz', '1234');
-const user2 = new User('oz', '1234');
-// //add user
-dbOperations.addUser(user1);
-dbOperations.addUser(user2);
+// dbOperations.clearTable();
 
 // const getUser = dbOperations.getUserById(user.id).then(result => console.log('user:', result));
 
@@ -31,9 +27,9 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-const generateAccessToken = (userId) => {
-    return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1800s" });
-}
+// const generateAccessToken = (userId) => {
+//     return jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1800s" });
+// }
 
 // API's
 

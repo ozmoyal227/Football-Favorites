@@ -1,4 +1,4 @@
-const config = require('./config/db.config');
+const config = require('../config/db.config');
 const sql = require('mssql');
 
 
@@ -43,10 +43,10 @@ const getUsers = async () => {
         let products = pool.request().query('SELECT * from Users');
         const users = (await products).recordset;
         // updating the data type of user.favTeams back to array
-        for (user of users) {
-            user.favTeams = favToJson(user.favTeams);
-            user.favLeagues = favToJson(user.favLeagues);
-        }
+        // for (user of users) {
+        //     user.favTeams = favToJson(user.favTeams);
+        //     user.favLeagues = favToJson(user.favLeagues);
+        // }
         return users;
     } catch (error) {
         console.log(error);
@@ -66,8 +66,12 @@ const getUserById = async (id) => {
 const addUser = async (User) => {
     try {
         let pool = await sql.connect(config);
-        let products = pool.request().query(`INSERT INTO Users VALUES
-        (${User.username}, '${User.password}', '${User.favTeams}', '${User.favLeagues}')`);
+        let products = pool.request()
+            .input('username', sql.VarChar(50), User.username)
+            .input('password', sql.VarChar(50), User.password)
+            .input('favTeams', sql.VarChar(100), User.favTeams)
+            .input('favLeagues', sql.VarChar(100), User.favLeagues)
+            .query('insert into Users(username, password, favTeams, favLeagues) values(@username, @password, @favTeams, @favLeagues)');
         return products;
     } catch (error) {
         console.log(error);
