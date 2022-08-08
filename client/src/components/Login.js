@@ -59,9 +59,9 @@ export default function Login() {
         setIsSubmitted(true);
     }
     return (
-        <div className="container text-center">
+        <div className="container text-center ">
             <h5 className="mb-3">Login and see your preferred leagues and teams</h5>
-            <p>{!authorized ? "you are not authorized" : "you are authorized"}</p>
+            {authorized && <p> you are authorized</p>}
 
             <form onSubmit={handleSubmit} className=" text-center px-4">
                 <div className="mb-3">

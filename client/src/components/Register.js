@@ -44,6 +44,7 @@ export default function Register() {
     }, [isSubmitted]);
 
     function handleChange(event) {
+        document.querySelector('#confirmPass').setCustomValidity("");
         const { name, value } = event.target;
         setFormData(prevFormData => {
             return {
@@ -55,21 +56,23 @@ export default function Register() {
     };
 
     function handleSubmit(event) {
-        event.preventDefault()
-        // submitToApi(formData)
-        if (formData.password !== formData.confirmPassword) {
-            document.querySelector('#confirmPass').setCustomValidity("This email is already registered!");
-        } else {
-            setIsSubmitted(true);
-        }
+        event.preventDefault();
 
+        setIsSubmitted(true);
 
     }
-    return (
-        <div className="container text-center">
-            <h5 className="mb-3">Don't have user yet? Sign-Up</h5>
-            <p>{!authorized ? "you are not authorized" : "you are authorized"}</p>
 
+    function passValidation() {
+        if (formData.password !== formData.confirmPassword) {
+            document.querySelector('#confirmPass').setCustomValidity("Your Passwords don't much");
+        } else {
+            // document.querySelector('#confirmPass').setCustomValidity("");
+        }
+    }
+
+    return (
+        <div className="container text-center ">
+            <h5 className="mb-3">Don't have user yet? Sign-Up</h5>
             <form onSubmit={handleSubmit} className="text-center px-4">
                 <div className="mb-3">
                     <input
@@ -91,7 +94,6 @@ export default function Register() {
                         value={formData.password}
                         required
                         className="form-control"
-                        id="confirmPass"
                     />
                 </div>
                 <div className="mb-3">
@@ -103,10 +105,13 @@ export default function Register() {
                         value={formData.confirmPassword}
                         required
                         className="form-control"
+                        id="confirmPass"
                     />
                 </div>
 
-                <button className="btn btn-primary">Sign-up</button>
+                <button className="btn btn-primary" onClick={passValidation}>Sign-up</button>
+                {authorized && <p> Successfully registered! now you can Login</p>}
+
 
             </form>
         </div>

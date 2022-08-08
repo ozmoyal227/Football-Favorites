@@ -1,17 +1,43 @@
+body {
+    background: url('../public/images/daniel-van-den-berg-29Jx9qyTW14-unsplash.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
 .back-header {
-    background: green;
+    background: #221f1f;
     height: 80px;
-    width: 99.5%;
+    width: 100%;
     border-radius: 0 0 5px 5px;
+    border-bottom: 2px solid #040101;
 }
 
 .user-circle {
-    background-color: aquamarine;
+    background-color: #b40421;
     width: 200px;
     height: 150px;
     border-radius: 0% 0% 100% 100%;
+    border: 3px solid #040101;
+    border-top: none;
     position: absolute;
 
+}
+
+.dropdown-toggle,
+.dropdown-toggle:checked {
+    background: none !important;
+    border: none;
+    box-shadow: none;
+}
+
+
+.dropdown-toggle.active:focus,
+.dropdown-toggle.show:focus,
+.dropdown-toggle:active:focus,
+.dropdown-toggle:focus {
+    background: none !important;
+    border: none;
+    box-shadow: none;
 }
 
 hr {
@@ -26,6 +52,15 @@ hr {
     width: 600px;
 }
 
+.main-container {
+    background: #221f1f88;
+    padding-top: 100px;
+    width: 80%;
+}
+
+.team-badge {
+    width: 1.3rem;
+}
 
 
 
@@ -35,8 +70,12 @@ hr {
         height: 125px;
     }
 
-    .right-header {
+    .back-header {
         height: 70px;
+    }
+
+    .main-container {
+        width: 85%;
     }
 }
 
@@ -46,8 +85,12 @@ hr {
         height: 120px;
     }
 
-    .right-header {
+    .back-header {
         height: 65px;
+    }
+
+    .main-container {
+        width: 90%;
     }
 }
 
@@ -58,7 +101,9 @@ hr {
         height: 110px;
     }
 
-    .right-header {
+    .back-header {
         height: 70px;
     }
+
+
 }
