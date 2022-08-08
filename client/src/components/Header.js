@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import RightSideHeader from './RightSideHeader';
+import BackHeader from './BackHeader';
 import UserCircle from './UserCircle';
 
 export default function Header() {
 
     return (
 
-        <div className='header d-flex sticky-top'>
+        <div className='header d-flex justify-content-center sticky-top'>
             <UserCircle />
-            <RightSideHeader />
+            <BackHeader />
         </div>
     )
 }
