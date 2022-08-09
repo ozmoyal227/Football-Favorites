@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import constants from '../constants';
-
+import UserContext from './context/UserProvider'
 
 export default function Login() {
+    const { user, setUser } = useContext(UserContext);
+
     const [formData, setFormData] = React.useState(
         {
             username: '',
@@ -32,12 +34,14 @@ export default function Login() {
                     };
                     const res = await fetch(`${constants.API_BASE_URL}login`, reqOptions);
                     const data = await res.json();
+                    if (data) {
+                        await localStorage.setItem('user', JSON.stringify(data));
+                    }
                     setAuthorized(res.ok ? true : false);
+                    setUser(data);
                 } catch (error) {
                     console.log(error);
                 }
-
-
             })();
         }
     }, [isSubmitted]);

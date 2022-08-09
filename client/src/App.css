@@ -5,11 +5,13 @@ body {
 }
 
 .back-header {
-    background: #221f1f;
+    background: linear-gradient(#161a1d, #0b090a, #161a1d);
+    /* background: #221f1f; */
     height: 80px;
     width: 100%;
     border-radius: 0 0 5px 5px;
     border-bottom: 2px solid #040101;
+    box-shadow: 0 1px 8px 0 black;
 }
 
 .user-circle {
@@ -23,21 +25,48 @@ body {
 
 }
 
+.user-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: url('../public/images/logo.png');
+    background-position: center;
+    background-size: cover;
+}
+
+.username {
+    font-size: min(3.5vw, 25px);
+}
+
+.state-msg {
+    font-size: min(3vw, 15px);
+}
+
+.site-name {
+    font-family: 'Alfa Slab One', cursive;
+    /* color: black; */
+    font-style: italic;
+    font-size: min(3vw, 30px);
+    max-width: 31%;
+    -webkit-text-stroke: 0.12vw #b40421;
+
+}
+
+.dropdown-toggle.active:focus,
+.dropdown-toggle.show:focus,
+.dropdown-toggle:active:focus,
+.dropdown-toggle:focus,
 .dropdown-toggle,
 .dropdown-toggle:checked {
     background: none !important;
     border: none;
     box-shadow: none;
+    position: relative;
+    top: -10px;
 }
 
-
-.dropdown-toggle.active:focus,
-.dropdown-toggle.show:focus,
-.dropdown-toggle:active:focus,
-.dropdown-toggle:focus {
-    background: none !important;
-    border: none;
-    box-shadow: none;
+h5 {
+    font-size: min(4.5vw, 20px);
 }
 
 hr {
@@ -50,18 +79,28 @@ hr {
     top: -80px !important;
     padding-top: 90px;
     width: 600px;
+    height: fit-content;
+    background: #b1a7a6;
+    border: 3px solid #040101;
+
 }
 
 .main-container {
     background: #221f1f88;
+    /* background: #ffffff22; */
     padding-top: 100px;
     width: 80%;
+    box-shadow: 0 1px 8px 0 #000000;
+
 }
 
 .team-badge {
     width: 1.3rem;
 }
 
+i {
+    cursor: pointer;
+}
 
 
 @media (max-width: 680px) {
@@ -72,6 +111,24 @@ hr {
 
     .back-header {
         height: 70px;
+    }
+
+    .dropdown-menu {
+        width: 300px;
+    }
+
+    hr {
+        height: 1px;
+    }
+
+    .user-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .user-container {
+        display: flex;
+        flex-direction: column;
     }
 
     .main-container {
@@ -102,7 +159,7 @@ hr {
     }
 
     .back-header {
-        height: 70px;
+        height: 50px;
     }
 
 

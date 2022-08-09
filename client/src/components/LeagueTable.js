@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-
+import constants from '../constants';
 
 export default function LeagueTable() {
 
     const [teams, setTeams] = useState(null);
-
+    const [season, setSeason] = useState({
+        start: constants.SEASON[0],
+        end: constants.SEASON[1]
+    })
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch('https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=4328&s=2021-2022');
+                const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=4328&s=${season.start}-${season.end}`);
                 const data = await res.json();
                 await setTeams(data.table);
             } catch (error) {
@@ -16,11 +19,11 @@ export default function LeagueTable() {
             }
         })()
 
-    }, []);
+    }, [season]);
     const tableRows = teams && teams.map((team) => {
         return (
             <tr key={team.idTeam}>
-                <th scope="row">{team.intRank}</th>
+                <th className="text-center" scope="row">{team.intRank}</th>
                 <td><img src={team.strTeamBadge} className="team-badge" /> {team.strTeam}</td>
                 <td className="text-center">{team.intPlayed}</td>
                 <td className="text-center">{team.intWin}</td>
@@ -34,18 +37,48 @@ export default function LeagueTable() {
 
     })
 
-
+    const decrease = () => {
+        if (season.start > 2013)
+            setSeason(prevSeason => {
+                return {
+                    start: prevSeason.start - 1,
+                    end: prevSeason.end - 1
+                }
+            })
+    }
+    const increase = () => {
+        if (season.end < constants.SEASON[1])
+            setSeason(prevSeason => {
+                return {
+                    start: prevSeason.start + 1,
+                    end: prevSeason.end + 1
+                }
+            })
+    }
 
     return (
         <div className="w-75 mx-auto">
             <div className="table-responsive rounded">
                 <table className="table table-sm table-dark table-striped rounded">
                     <thead className="border-bottom-0">
-                        <tr>
-                            <th colSpan="10">League Name</th>
-                        </tr>
+
                     </thead>
                     <thead>
+                        <tr className="border-bottom-0">
+                            {/* <th colSpan="8">League Name</th> */}
+                            <th colSpan="9">
+                                <div className="d-flex justify-content-between">
+                                    <span>League Name</span>
+                                    <span>
+                                        <i onClick={decrease} className="bi bi-chevron-left"></i>
+                                        {season.start}-{season.end}
+                                        <i onClick={increase} className="bi bi-chevron-right"></i>
+                                    </span>
+                                </div>
+
+
+                            </th>
+                        </tr>
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Team</th>

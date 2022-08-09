@@ -10,7 +10,6 @@ const generateAccessToken = (user) => {
 const register = async (req, res) => {
     try {
         const { username, password } = req.body;
-
         const allUsers = await dbOperations.getUsers();
         for (item of allUsers) {
             if (item.username === username) {
@@ -55,7 +54,12 @@ const login = async (req, res) => {
     }
 }
 
+// const logout = async (req, res) => {
+
+// }
+
 module.exports = {
     register,
-    login
+    login,
+    // logout
 }

@@ -110,7 +110,7 @@ export default function Register() {
                 </div>
 
                 <button className="btn btn-primary" onClick={passValidation}>Sign-up</button>
-                {authorized && <p> Successfully registered! now you can Login</p>}
+                {authorized && <p className="lh-1 pt-2 my-0 text-success"> Successfully registered! now you can Login</p>}
 
 
             </form>

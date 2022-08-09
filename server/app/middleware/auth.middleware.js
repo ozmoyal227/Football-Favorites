@@ -14,9 +14,8 @@ const validateToken = (req, res, next) => {
         next();
     });
 
-    module.export = {
-        validateToken
-    }
+}
 
-
+module.export = {
+    validateToken
 }

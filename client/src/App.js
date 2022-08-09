@@ -1,19 +1,15 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
-// import Sidebar from './components/Sidebar';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from './components/Header';
 import Main from './components/Main';
+import { UserProvider } from './components/context/UserProvider';
 
 function App() {
-
-
   return (
-
-    <div className="App">
+    <UserProvider>
       <Header />
-      {/* <Sidebar /> */}
       <Main />
-    </div>
+    </UserProvider>
   );
 }
 
