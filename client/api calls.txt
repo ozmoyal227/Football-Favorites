@@ -1,0 +1,19 @@
+adding league to fav:
+
+https://www.thesportsdb.com/api/v1/json/2/all_countries.php
+to get all countries
+
+
+then get leagues by country
+https://www.thesportsdb.com/api/v1/json/2/search_all_leagues.php?c=England
+to get all leagues in a country, neef to filter with strSport=soccer, maybe strGender=male
+save idLeague.
+
+
+tables:
+Lookup Table by League ID and Season
+https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=4328&s=2020-2021
+
+schedule
+Events in a specific round by league id/round/season
+https://www.thesportsdb.com/api/v1/json/2/eventsround.php?id=4328&r=38&s=2014-2015

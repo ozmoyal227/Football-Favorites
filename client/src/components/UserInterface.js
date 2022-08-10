@@ -8,12 +8,11 @@ import UserContext from './context/UserProvider';
 export default function UserInterface() {
 
     const { user } = useContext(UserContext);
-
     return (
         <div className="user-interface">
             {
-                user.token ?
-                    < div className="d-flex">
+                localStorage.getItem('user') ?
+                    < div className="user-container">
                         <Favorites />
                     </div > :
                     < div className="d-flex user-container" >

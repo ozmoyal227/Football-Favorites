@@ -36,9 +36,10 @@ export default function Login() {
                     const data = await res.json();
                     if (data) {
                         await localStorage.setItem('user', JSON.stringify(data));
+                        setAuthorized(res.ok ? true : false);
+                        setUser(data);
                     }
-                    setAuthorized(res.ok ? true : false);
-                    setUser(data);
+
                 } catch (error) {
                     console.log(error);
                 }
@@ -63,12 +64,11 @@ export default function Login() {
         setIsSubmitted(true);
     }
     return (
-        <div className="container text-center ">
-            <h5 className="mb-3">Login and see your preferred leagues and teams</h5>
-            {authorized && <p> you are authorized</p>}
-
-            <form onSubmit={handleSubmit} className=" text-center px-4">
-                <div className="mb-3">
+        <div className="container-fluid d-flex justify-content-center">
+            <form onSubmit={handleSubmit} className="text-center d-flex flex-column">
+                <h5 className="mb-3">Login and see your preferred leagues and teams</h5>
+                {authorized && <p> you are authorized</p>}
+                <div className="mb-3 mx-auto">
                     <input
                         type="text"
                         placeholder="Username"
@@ -80,7 +80,7 @@ export default function Login() {
                     />
                 </div>
 
-                <div className="mb-3">
+                <div className="mb-3  mx-auto">
                     <input
                         type="password"
                         placeholder="Password"
@@ -92,7 +92,7 @@ export default function Login() {
                     />
                 </div>
 
-                <button className="btn btn-primary">Login</button>
+                <button className="btn auth-btn mt-auto mx-auto mb-3">Login</button>
 
             </form>
         </div>

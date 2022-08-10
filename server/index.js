@@ -12,7 +12,7 @@ const routes = require('./app/api/routes');
 const dbOperations = require('./app/database/dbOperations');
 const User = require('./app/models/User');
 
-// create table
+// create table wont working yet
 // dbOperations.createTable();
 
 // clear table data

@@ -34,6 +34,19 @@ export default function Register() {
                     const res = await fetch(`${constants.API_BASE_URL}register`, reqOptions);
                     const data = await res.json();
                     setAuthorized(res.ok ? true : false);
+                    setFormData(prevFormData => {
+                        if (res.ok)
+                            return (
+                                {
+                                    username: '',
+                                    password: '',
+                                    confirmPassword: ''
+                                }
+                            )
+                        else return (
+                            prevFormData
+                        )
+                    })
                 } catch (error) {
                     console.log(error);
                 }
@@ -71,10 +84,10 @@ export default function Register() {
     }
 
     return (
-        <div className="container text-center ">
-            <h5 className="mb-3">Don't have user yet? Sign-Up</h5>
-            <form onSubmit={handleSubmit} className="text-center px-4">
-                <div className="mb-3">
+        <div className="container-fluid d-flex justify-content-center">
+            <form onSubmit={handleSubmit} className="text-center d-flex flex-column">
+                <h5 className="mb-3">Don't have user yet? Sign-Up</h5>
+                <div className="mb-3  mx-auto">
                     <input
                         type="text"
                         placeholder="Username"
@@ -85,7 +98,7 @@ export default function Register() {
                         className="form-control"
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3  mx-auto">
                     <input
                         type="password"
                         placeholder="Password"
@@ -96,7 +109,7 @@ export default function Register() {
                         className="form-control"
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 mx-auto">
                     <input
                         type="password"
                         placeholder="Confirm Password"
@@ -108,12 +121,10 @@ export default function Register() {
                         id="confirmPass"
                     />
                 </div>
-
-                <button className="btn btn-primary" onClick={passValidation}>Sign-up</button>
-                {authorized && <p className="lh-1 pt-2 my-0 text-success"> Successfully registered! now you can Login</p>}
-
-
+                {authorized && <p className="lh-1  py-1 text-success"> Successfully registered! now you can Login.</p>}
+                <button className="btn auth-btn mt-auto mx-auto mb-3" onClick={passValidation}>Sign-Up</button>
             </form>
         </div>
+
     )
 }

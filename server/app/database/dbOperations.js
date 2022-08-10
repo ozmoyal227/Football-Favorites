@@ -20,7 +20,6 @@ const sql = require('mssql');
 // table.create = true;
 // table.columns.add('id', sql.Int, { nullable: false, primary: true });
 // table.columns.add('username', sql.VarChar(50), { nullable: false });
-// table.columns.add('favTeams', sql.VarChar(100), { nullable: false });
 // table.columns.add('favLeagues', sql.VarChar(100), { nullable: false });
 // }
 
@@ -42,9 +41,8 @@ const getUsers = async () => {
         let pool = await sql.connect(config);
         let products = pool.request().query('SELECT * from Users');
         const users = (await products).recordset;
-        // updating the data type of user.favTeams back to array
+        // updating the data type of user.favLeagues back to array
         // for (user of users) {
-        //     user.favTeams = favToJson(user.favTeams);
         //     user.favLeagues = favToJson(user.favLeagues);
         // }
         return users;
@@ -69,25 +67,14 @@ const addUser = async (User) => {
         let products = pool.request()
             .input('username', sql.VarChar(50), User.username)
             .input('password', sql.VarChar(50), User.password)
-            .input('favTeams', sql.VarChar(100), User.favTeams)
             .input('favLeagues', sql.VarChar(100), User.favLeagues)
-            .query('insert into Users(username, password, favTeams, favLeagues) values(@username, @password, @favTeams, @favLeagues)');
+            .query('insert into Users(username, password, favLeagues) values(@username, @password, @favLeagues)');
         return products;
     } catch (error) {
         console.log(error);
     }
 }
 
-// get favTeams of user by user id, returning array of teams id(id as string)
-const getFavTeams = async (userId) => {
-    try {
-        let pool = await sql.connect(config);
-        let products = (await pool.request().query(`SELECT favTeams from Users WHERE id=${userId}`)).recordset;
-        return favToJson(products[0].favTeams);
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 // get favLeagues of user by user id, returning array of leagues id(id as string)
 const getFavLeagues = async (userId) => {
@@ -100,54 +87,6 @@ const getFavLeagues = async (userId) => {
     }
 }
 
-// get favLeagues of user by user id, returning array of leagues id(id as string)
-const getFav = async (userId) => {
-    try {
-        let pool = await sql.connect(config);
-        let products = (await pool.request().query(`SELECT favLeagues, favTeams from Users WHERE id=${userId}`)).recordset;
-        const fav = {
-            favTeams: favToJson(products[0].favTeams),
-            favLeagues: favToJson(products[0].favLeagues)
-        }
-        return fav;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-// adding team id to favTeams of user (by user id)
-const addToFavTeams = async (userId, teamId) => {
-    try {
-        let favTeams = await getFavTeams(userId).then(result => result);
-        favTeams.push(teamId);
-        let pool = await sql.connect(config);
-        pool.request().query(
-            `UPDATE Users 
-            SET favTeams = '${favToString(favTeams)}'
-            WHERE id = ${userId}`
-        );
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-// removing team id from favTeams of user (by user id)
-const rmvFromFavTeams = async (userId, teamId) => {
-    try {
-        let favTeams = await getFavTeams(userId).then(result => result);
-        let newFavTeams = favTeams.filter(team => {
-            return team !== teamId;
-        });
-        let pool = await sql.connect(config);
-        pool.request().query(
-            `UPDATE Users 
-            SET favTeams = '${favToString(newFavTeams)}'
-            WHERE id = ${userId}`
-        );
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 // adding league id to favLeagues of user (by user id)
 const addToFavLeagues = async (userId, leagueId) => {
@@ -201,12 +140,8 @@ module.exports = {
     addUser,
     getUserById,
     clearTable,
-    addToFavTeams,
     addToFavLeagues,
-    getFavTeams,
     getFavLeagues,
-    rmvFromFavTeams,
     rmvFromFavLeagues,
-    getFav,
     // createTable
 };

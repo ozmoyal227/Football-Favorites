@@ -35,12 +35,10 @@ const login = async (req, res) => {
                 const accessToken = generateAccessToken({
                     username: username,
                     password: password,
-                    favTeams: item.favTeams,
                     favLeagues: item.favLeagues
                 });
                 res.status(200).json({
                     username: username,
-                    favTeams: item.favTeams,
                     favLeagues: item.favLeagues,
                     token: `Bearer ${accessToken}`
                 });

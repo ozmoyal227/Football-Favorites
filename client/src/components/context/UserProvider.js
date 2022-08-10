@@ -4,9 +4,12 @@ import constants from "../../constants";
 const UserContext = createContext({});
 
 export function UserProvider({ children }) {
-
-
-    const [user, setUser] = useState(constants.DEFAULT_USER);
+    const currUser = localStorage.getItem('user');
+    const [user, setUser] = useState(
+        currUser ?
+            currUser :
+            constants.DEFAULT_USER
+    );
 
 
     return (

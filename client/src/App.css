@@ -67,6 +67,7 @@ body {
 
 h5 {
     font-size: min(4.5vw, 20px);
+    height: max-content;
 }
 
 hr {
@@ -80,9 +81,36 @@ hr {
     padding-top: 90px;
     width: 600px;
     height: fit-content;
-    background: #b1a7a6;
+    background: linear-gradient(#e6e6e9, #909595);
     border: 3px solid #040101;
+}
 
+.auth-btn {
+    background: #b40421;
+    color: white;
+    border: 1px solid #040101;
+}
+
+.auth-btn:hover,
+.auth-btn:focus {
+    background: #b40421;
+    color: white;
+    box-shadow: 0 0 5px 0 white;
+}
+
+.user-guide {
+    width: 45%;
+}
+
+.color-font {
+    color: #b40421;
+}
+
+.fav-leagues {
+    width: 300px;
+    height: 250px;
+    box-shadow: 0 0 5px 0 black;
+    background: linear-gradient(#0b090a, #161a1d);
 }
 
 .main-container {

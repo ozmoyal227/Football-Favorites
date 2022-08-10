@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const validateToken = (req, res, next) => {
+    // maybe change here the check to be from local storage
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
 
