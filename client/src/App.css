@@ -52,12 +52,12 @@ body {
 
 }
 
-.dropdown-toggle.active:focus,
-.dropdown-toggle.show:focus,
-.dropdown-toggle:active:focus,
-.dropdown-toggle:focus,
-.dropdown-toggle,
-.dropdown-toggle:checked {
+.dropdown-btn.active:focus,
+.dropdown-btn.show:focus,
+.dropdown-btn:active:focus,
+.dropdown-btn:focus,
+.dropdown-btn,
+.dropdown-btn:checked {
     background: none !important;
     border: none;
     box-shadow: none;
@@ -75,7 +75,7 @@ hr {
     height: 15em;
 }
 
-.dropdown-menu {
+.user-menu {
     z-index: -1;
     top: -80px !important;
     padding-top: 90px;
@@ -113,6 +113,25 @@ hr {
     background: linear-gradient(#0b090a, #161a1d);
 }
 
+.css-1s2u09g-control {
+    transform: scale(1, .85);
+    color: #000;
+    width: 110px;
+}
+
+.css-319lph-ValueContainer {
+    width: 110px;
+}
+
+.css-b62m3t-container {
+    width: 110px;
+}
+
+#react-select-3-listbox {
+    background: white;
+    color: black;
+}
+
 .main-container {
     background: #221f1f88;
     /* background: #ffffff22; */
@@ -141,7 +160,7 @@ i {
         height: 70px;
     }
 
-    .dropdown-menu {
+    .user-menu {
         width: 300px;
     }
 

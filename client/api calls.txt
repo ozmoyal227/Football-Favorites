@@ -17,3 +17,8 @@ https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=4328&s=2020-2021
 schedule
 Events in a specific round by league id/round/season
 https://www.thesportsdb.com/api/v1/json/2/eventsround.php?id=4328&r=38&s=2014-2015
+
+for leagues table:
+List all leagues
+https://www.thesportsdb.com/api/v1/json/2/all_leagues.php
+serching the id's and then show league name
