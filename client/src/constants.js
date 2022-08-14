@@ -4,9 +4,9 @@ export default {
     DEFAULT_USER: {
         username: 'default user',
         token: '',
+        favLeagues: ['4328', '4331', '4332', '4334', '4335'] //top five leagues
 
     },
-    TOP_FIVE_LEAGUES: ['4328', '4331', '4332', '4334', '4335']
 
 
 }

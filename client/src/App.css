@@ -115,21 +115,33 @@ hr {
 
 .css-1s2u09g-control {
     transform: scale(1, .85);
-    color: #000;
     width: 110px;
+}
+
+.css-1pahdxg-control {
+    color: #000;
 }
 
 .css-319lph-ValueContainer {
     width: 110px;
+    color: #000;
 }
 
 .css-b62m3t-container {
     width: 110px;
+    color: #000;
 }
 
 #react-select-3-listbox {
-    background: white;
     color: black;
+}
+
+#react-select-5-listbox {
+    color: black;
+}
+
+.leagues-list {
+    max-height: 175px;
 }
 
 .main-container {

@@ -32,16 +32,14 @@ const login = async (req, res) => {
         const allUsers = await dbOperations.getUsers();
         for (item of allUsers) {
             if (item.username === username && item.password === password) {
-                const accessToken = generateAccessToken({
+                const user = {
+                    id: item.id,
                     username: username,
-                    password: password,
                     favLeagues: item.favLeagues
-                });
-                res.status(200).json({
-                    username: username,
-                    favLeagues: item.favLeagues,
-                    token: `Bearer ${accessToken}`
-                });
+                }
+                const accessToken = generateAccessToken(user);
+                user.token = `Bearer ${accessToken}`;
+                res.status(200).json(user);
                 return;
             }
         }

@@ -5,12 +5,33 @@ import LeaguesSelect from './LeaguesSelect';
 
 
 export default function Favorites() {
-    const { setUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext);
+    const [leagues, setLeagues] = useState(null);
 
     const handleLogout = () => {
         setUser(constants.DEFAULT_USER);
         localStorage.removeItem('user');
     }
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await fetch('https://www.thesportsdb.com/api/v1/json/2/all_leagues.php')
+                const data = await res.json();
+                setLeagues(data.leagues);
+            } catch (error) {
+                console.log(error);
+            }
+        })()
+    }, [])
+
+
+
+    const userLeagues = leagues && leagues.filter(league => {
+        return user.favLeagues && user.favLeagues.includes(league.idLeague);
+    }).map(league => {
+        return <li key={league.idLeague}> {league.strLeague}</li>
+    });
 
     return (
         <div className="text-center">
@@ -29,6 +50,10 @@ export default function Favorites() {
                     <div className="border-bottom border-2">
                         <LeaguesSelect />
                     </div>
+                    <ul className="leagues-list overflow-auto">
+                        {userLeagues}
+                    </ul>
+
                 </div>
             </div>
             <button onClick={handleLogout} className="btn auth-btn mb-3 ">Logout</button>

@@ -8,6 +8,7 @@ import UserContext from './context/UserProvider';
 export default function UserInterface() {
 
     const { user } = useContext(UserContext);
+
     return (
         <div className="user-interface">
             {

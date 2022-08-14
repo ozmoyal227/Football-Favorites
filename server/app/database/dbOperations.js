@@ -42,9 +42,9 @@ const getUsers = async () => {
         let products = pool.request().query('SELECT * from Users');
         const users = (await products).recordset;
         // updating the data type of user.favLeagues back to array
-        // for (user of users) {
-        //     user.favLeagues = favToJson(user.favLeagues);
-        // }
+        for (user of users) {
+            user.favLeagues = favToJson(user.favLeagues);
+        }
         return users;
     } catch (error) {
         console.log(error);
@@ -64,11 +64,13 @@ const getUserById = async (id) => {
 const addUser = async (User) => {
     try {
         let pool = await sql.connect(config);
-        let products = pool.request()
+        let products = await pool.request()
             .input('username', sql.VarChar(50), User.username)
             .input('password', sql.VarChar(50), User.password)
             .input('favLeagues', sql.VarChar(100), User.favLeagues)
             .query('insert into Users(username, password, favLeagues) values(@username, @password, @favLeagues)');
+
+        console.log(products);
         return products;
     } catch (error) {
         console.log(error);
@@ -92,13 +94,16 @@ const getFavLeagues = async (userId) => {
 const addToFavLeagues = async (userId, leagueId) => {
     try {
         let favLeagues = await getFavLeagues(userId).then(result => result);
-        favLeagues.push(leagueId);
+        if (favLeagues && !favLeagues.includes(leagueId))
+            favLeagues.push(leagueId);
         let pool = await sql.connect(config);
+
         pool.request().query(
             `UPDATE Users 
             SET favLeagues = '${favToString(favLeagues)}'
             WHERE id = ${userId}`
         );
+        return favLeagues;
     } catch (error) {
         console.log(error);
     }

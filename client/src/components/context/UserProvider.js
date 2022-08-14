@@ -4,7 +4,8 @@ import constants from "../../constants";
 const UserContext = createContext({});
 
 export function UserProvider({ children }) {
-    const currUser = localStorage.getItem('user');
+    const currUser = JSON.parse(localStorage.getItem('user'));
+
     const [user, setUser] = useState(
         currUser ?
             currUser :

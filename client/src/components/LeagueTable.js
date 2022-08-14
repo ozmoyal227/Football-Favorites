@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import constants from '../constants';
 
-export default function LeagueTable() {
+export default function LeagueTable(props) {
 
     const [teams, setTeams] = useState(null);
     const [season, setSeason] = useState({
@@ -11,18 +11,23 @@ export default function LeagueTable() {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=4328&s=${season.start}-${season.end}`);
+                const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=${props.leagueName}&s=${season.start}-${season.end}`);
                 const data = await res.json();
-                await setTeams(data.table);
+                if (data.table) {
+                    await setTeams(data.table);
+                }
             } catch (error) {
                 console.log(error);
+                setTeams(null);
             }
         })()
 
     }, [season]);
-    const tableRows = teams && teams.map((team) => {
+
+    // console.log(teams);
+    const tableRows = teams ? teams.map((team) => {
         return (
-            <tr key={team.idTeam}>
+            <tr key={team.idStanding}>
                 <th className="text-center" scope="row">{team.intRank}</th>
                 <td><img src={team.strTeamBadge} className="team-badge" /> {team.strTeam}</td>
                 <td className="text-center">{team.intPlayed}</td>
@@ -34,8 +39,8 @@ export default function LeagueTable() {
                 <th className="text-center">{team.intPoints}</th>
             </tr>
         )
+    }) : null;
 
-    })
 
     const decrease = () => {
         if (season.start > 2013)
@@ -60,15 +65,11 @@ export default function LeagueTable() {
         <div className="w-75 mx-auto">
             <div className="table-responsive rounded">
                 <table className="table table-sm table-dark table-striped rounded">
-                    <thead className="border-bottom-0">
-
-                    </thead>
                     <thead>
                         <tr className="border-bottom-0">
-                            {/* <th colSpan="8">League Name</th> */}
                             <th colSpan="9">
                                 <div className="d-flex justify-content-between">
-                                    <span>League Name</span>
+                                    <span>{tableRows ? props.leagueName : `No result for ${props.leagueName} in this season`}</span>
                                     <span>
                                         <i onClick={decrease} className="bi bi-chevron-left"></i>
                                         {season.start}-{season.end}

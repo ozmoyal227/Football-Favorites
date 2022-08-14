@@ -3,7 +3,7 @@ import constants from '../constants';
 import UserContext from './context/UserProvider'
 
 export default function Login() {
-    const { user, setUser } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     const [formData, setFormData] = React.useState(
         {
@@ -12,15 +12,15 @@ export default function Login() {
         }
     )
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [authorized, setAuthorized] = useState(false);
+    const [loginStatus, setLoginStatus] = useState(false);
 
 
-    // in req that needed to be authorized for nedd to add to the headers: 'Authorization': `Bearer ${here to put token}`,
+    // in req that needed to be Authorizarized for need to add to the headers: 'Authorization': `Bearer ${here to put token}`,
     useEffect(() => {
         if (isSubmitted) {
             (async () => {
                 try {
-                    const user = {
+                    const userAuth = {
                         username: `${formData.username}`,
                         password: `${formData.password}`,
                     }
@@ -30,16 +30,16 @@ export default function Login() {
                             'Content-Type': 'application/json',
                             'Access-Control-Allow-Origin': '*'
                         },
-                        body: JSON.stringify(user)
+                        body: JSON.stringify(userAuth)
                     };
                     const res = await fetch(`${constants.API_BASE_URL}login`, reqOptions);
                     const data = await res.json();
-                    if (data) {
+                    if (res.ok) {
+                        setLoginStatus('Loading...');
                         await localStorage.setItem('user', JSON.stringify(data));
-                        setAuthorized(res.ok ? true : false);
-                        setUser(data);
-                    }
-
+                        await setUser(data);
+                    } else
+                        setLoginStatus(data);
                 } catch (error) {
                     console.log(error);
                 }
@@ -67,7 +67,6 @@ export default function Login() {
         <div className="container-fluid d-flex justify-content-center">
             <form onSubmit={handleSubmit} className="text-center d-flex flex-column">
                 <h5 className="mb-3">Login and see your preferred leagues and teams</h5>
-                {authorized && <p> you are authorized</p>}
                 <div className="mb-3 mx-auto">
                     <input
                         type="text"
@@ -91,9 +90,8 @@ export default function Login() {
                         className="form-control"
                     />
                 </div>
-
+                <p> {loginStatus && loginStatus}</p>
                 <button className="btn auth-btn mt-auto mx-auto mb-3">Login</button>
-
             </form>
         </div>
     )

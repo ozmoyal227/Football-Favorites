@@ -11,7 +11,7 @@ export default function Register() {
         }
     )
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [authorized, setAuthorized] = useState(false);
+    const [registerStatus, setRegisterStatus] = useState('');
 
 
     // in req that needed to be authorized for nedd to add to the headers: 'Authorization': `Bearer ${here to put token}`,
@@ -33,7 +33,10 @@ export default function Register() {
                     };
                     const res = await fetch(`${constants.API_BASE_URL}register`, reqOptions);
                     const data = await res.json();
-                    setAuthorized(res.ok ? true : false);
+                    if (res.status === 409)
+                        setRegisterStatus(data);
+                    if (res.status === 200)
+                        setRegisterStatus('Successfully registered! now you can Login.');
                     setFormData(prevFormData => {
                         if (res.ok)
                             return (
@@ -121,7 +124,7 @@ export default function Register() {
                         id="confirmPass"
                     />
                 </div>
-                {authorized && <p className="lh-1  py-1 text-success"> Successfully registered! now you can Login.</p>}
+                <p className="lh-1  py-1 "> {registerStatus}</p>
                 <button className="btn auth-btn mt-auto mx-auto mb-3" onClick={passValidation}>Sign-Up</button>
             </form>
         </div>
