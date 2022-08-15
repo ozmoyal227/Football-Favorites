@@ -36,8 +36,8 @@ export default function Login() {
                     const data = await res.json();
                     if (res.ok) {
                         setLoginStatus('Loading...');
-                        await localStorage.setItem('user', JSON.stringify(data));
                         await setUser(data);
+                        localStorage.setItem('user', JSON.stringify(data));
                     } else
                         setLoginStatus(data);
                 } catch (error) {

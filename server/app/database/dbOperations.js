@@ -66,12 +66,13 @@ const addUser = async (User) => {
         let pool = await sql.connect(config);
         let products = await pool.request()
             .input('username', sql.VarChar(50), User.username)
-            .input('password', sql.VarChar(50), User.password)
+            .input('password', sql.Char(60), User.password)
             .input('favLeagues', sql.VarChar(100), User.favLeagues)
             .query('insert into Users(username, password, favLeagues) values(@username, @password, @favLeagues)');
-
-        console.log(products);
-        return products;
+        if (products)
+            return true;
+        else
+            return false;
     } catch (error) {
         console.log(error);
     }
@@ -122,6 +123,7 @@ const rmvFromFavLeagues = async (userId, leagueId) => {
             SET favLeagues = '${favToString(newFavLeagues)}'
             WHERE id = ${userId}`
         );
+        return newFavLeagues;
     } catch (error) {
         console.log(error);
     }

@@ -36,10 +36,10 @@ const addFavLeague = async (req, res) => {
 
 const rmvLeague = async (req, res, next) => {
     try {
-        const id = req.params.id;
+        const userId = req.params.id;
         const leagueId = req.body.id;
-        const removed = await dbOperations.rmvFromFavLeagues(id, leagueId);
-        res.send(removed);
+        const favLeagues = await dbOperations.rmvFromFavLeagues(userId, leagueId);
+        res.send(favLeagues);
     } catch (error) {
         res.status(400).send(error.message);
     }

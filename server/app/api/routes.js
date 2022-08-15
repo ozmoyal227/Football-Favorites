@@ -9,7 +9,7 @@ router.post('/login', authController.login);
 router.get('/users', userController.getAllUsers);
 // router.get('/fav/:id', validate, userController.getFav);
 router.post('/addLeague/:id', userController.addFavLeague);
-// router.post('/rmvLeague/:id', validate, userController.rmvLeague);
+router.post('/rmvLeague/:id', userController.rmvLeague);
 // router.get('/favTeams/:id', userController.getFavTeams); need to be change for get leagues
 
 

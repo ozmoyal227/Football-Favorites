@@ -17,7 +17,7 @@ export default function LeaguesSelect() {
                 try {
                     const res = await fetch('https://www.thesportsdb.com/api/v1/json/2/all_countries.php');
                     const data = await res.json();
-                    await setCountries(data.countries);
+                    setCountries(data.countries);
                 } catch (error) {
                     console.log(error);
                 }
@@ -27,7 +27,7 @@ export default function LeaguesSelect() {
                 try {
                     const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/search_all_leagues.php?c=${selectedCountry}`);
                     const data = await res.json();
-                    await setLeagues(data.countries);
+                    setLeagues(data.countries);
                 } catch (error) {
                     console.log(error);
                 }
@@ -53,6 +53,7 @@ export default function LeaguesSelect() {
                                 favLeagues: updatedFav
                             }
                         })
+                        setAddingLeague(false);
                     }
                 } catch (error) {
                     console.log(error)
@@ -60,8 +61,12 @@ export default function LeaguesSelect() {
             })()
 
         }
+
     }, [selectedCountry, selectedLeague, addingLeague]);
 
+    useEffect(() => {
+        localStorage.setItem('user', JSON.stringify(user));
+    }, [user])
 
     const countriesOptions = countries && countries.map((country) => {
         return { label: country.name_en, value: country.name_en }

@@ -11,7 +11,7 @@ export default function LeagueTable(props) {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=${props.leagueName}&s=${season.start}-${season.end}`);
+                const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=${props.leagueId}&s=${season.start}-${season.end}`);
                 const data = await res.json();
                 if (data.table) {
                     await setTeams(data.table);
@@ -24,7 +24,7 @@ export default function LeagueTable(props) {
 
     }, [season]);
 
-    // console.log(teams);
+
     const tableRows = teams ? teams.map((team) => {
         return (
             <tr key={team.idStanding}>

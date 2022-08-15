@@ -1,6 +1,7 @@
 const dbOperations = require('../../database/dbOperations');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
+const bcrypt = require('bcrypt');
 
 
 const generateAccessToken = (user) => {
@@ -10,6 +11,7 @@ const generateAccessToken = (user) => {
 const register = async (req, res) => {
     try {
         const { username, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
         const allUsers = await dbOperations.getUsers();
         for (item of allUsers) {
             if (item.username === username) {
@@ -17,9 +19,11 @@ const register = async (req, res) => {
                 return;
             }
         }
-        const user = new User(username, password);
-        const adding = await dbOperations.addUser(user);
-        res.status(200).json(user);
+        const user = new User(username, hashedPassword);
+        const added = await dbOperations.addUser(user);
+        if (added)
+            res.status(200).json(user);
+        else res.status(400).json(user);
         return;
     } catch (error) {
         res.status(400).json(error.message);
@@ -31,16 +35,19 @@ const login = async (req, res) => {
         const { username, password } = req.body;
         const allUsers = await dbOperations.getUsers();
         for (item of allUsers) {
-            if (item.username === username && item.password === password) {
-                const user = {
-                    id: item.id,
-                    username: username,
-                    favLeagues: item.favLeagues
+            if (item.username === username) {
+                const isAuth = await bcrypt.compare(password, item.password);
+                if (isAuth) {
+                    const user = {
+                        id: item.id,
+                        username: username,
+                        favLeagues: item.favLeagues
+                    }
+                    const accessToken = generateAccessToken(user);
+                    user.token = `Bearer ${accessToken}`;
+                    res.status(200).json(user);
+                    return;
                 }
-                const accessToken = generateAccessToken(user);
-                user.token = `Bearer ${accessToken}`;
-                res.status(200).json(user);
-                return;
             }
         }
         res.status(403).json("Invalid Username or Password, please try again.");

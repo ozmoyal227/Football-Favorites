@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from './context/UserProvider';
 import UserInterface from './UserInterface';
 export default function UserCircle() {
 
+    const { user } = useContext(UserContext);
     return (
         <div className='user-circle text-center text-white'>
             <div className="user-img mx-auto mt-1">
 
             </div>
             <div className="">
-                <h5 className="m-0 username">Username</h5>
+                <h5 className="m-0 username">{user.username !== 'default user' ? user.username : ''}</h5>
                 <p className="m-0 state-msg">Your favorites</p>
             </div>
             <div className="dropdown-center">

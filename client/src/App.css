@@ -2,6 +2,7 @@ body {
     background: url('../public/images/daniel-van-den-berg-29Jx9qyTW14-unsplash.jpg') no-repeat;
     background-position: center;
     background-size: cover;
+    width: 100%;
 }
 
 .back-header {
@@ -144,13 +145,21 @@ hr {
     max-height: 175px;
 }
 
+.bi-dash-circle-dotted {
+    display: none;
+}
+
+li:hover .bi-dash-circle-dotted {
+    display: inline;
+}
+
 .main-container {
     background: #221f1f88;
     /* background: #ffffff22; */
     padding-top: 100px;
     width: 80%;
     box-shadow: 0 1px 8px 0 #000000;
-
+    min-height: 100vh;
 }
 
 .team-badge {
@@ -173,7 +182,7 @@ i {
     }
 
     .user-menu {
-        width: 300px;
+        width: 315px;
     }
 
     hr {
@@ -188,6 +197,14 @@ i {
     .user-container {
         display: flex;
         flex-direction: column;
+    }
+
+    .logged-in-container {
+        flex-direction: column;
+    }
+
+    .user-guide {
+        width: 85%;
     }
 
     .main-container {
