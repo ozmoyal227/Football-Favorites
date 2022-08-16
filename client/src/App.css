@@ -65,6 +65,27 @@ body {
     top: -10px;
 }
 
+.about-dropdown-btn.active:focus,
+.about-dropdown-btn.show:focus,
+.about-dropdown-btn:active:focus,
+.about-dropdown-btn:focus,
+.about-dropdown-btn,
+.about-dropdown-btn:checked {
+    background: none !important;
+    border: none;
+    box-shadow: none;
+    -webkit-text-stroke: 0.5px #b40421;
+    font-size: min(3vw, 17px);
+}
+
+.about-dropdown-btn::after {
+    display: none !important;
+}
+
+.about-dropdown {
+    width: 200px;
+}
+
 h5 {
     font-size: min(4.5vw, 20px);
     height: max-content;
@@ -162,7 +183,7 @@ li:hover .bi-dash-circle-dotted {
 }
 
 .league-name {
-    max-width: 70%;
+    /* max-width: 70%; */
 }
 
 .team-badge {
@@ -174,7 +195,7 @@ i {
 }
 
 
-@media (max-width: 680px) {
+@media (max-width: 660px) {
     .user-circle {
         width: 175px;
         height: 125px;
@@ -204,6 +225,10 @@ i {
 
     .logged-in-container {
         flex-direction: column;
+    }
+
+    .bi-dash-circle-dotted {
+        display: inline-block;
     }
 
     .user-guide {

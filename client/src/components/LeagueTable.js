@@ -32,10 +32,10 @@ export default function LeagueTable(props) {
                 <th className="text-center" scope="row">{team.intRank}</th>
                 <td ><img src={team.strTeamBadge} className="team-badge" /> {team.strTeam}</td>
                 <td className="text-center">{team.intPlayed}</td>
-                <td className="text-center">{team.intWin}</td>
-                <td className="text-center">{team.intDraw}</td>
-                <td className="text-center">{team.intLoss}</td>
-                <td className="text-center">{team.intGoalsFor}:{team.intGoalsAgainst}</td>
+                <td className="text-center d-none d-sm-table-cell">{team.intWin}</td>
+                <td className="text-center d-none d-sm-table-cell">{team.intDraw}</td>
+                <td className="text-center d-none d-sm-table-cell">{team.intLoss}</td>
+                <td className="text-center d-none d-sm-table-cell">{team.intGoalsFor}:{team.intGoalsAgainst}</td>
                 <td className="text-center">{team.intGoalDifference}</td>
                 <th className="text-center">{team.intPoints}</th>
             </tr>
@@ -71,7 +71,7 @@ export default function LeagueTable(props) {
                             <th colSpan="9">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <span className="league-name">{tableRows ? props.leagueName : `No result for ${props.leagueName} in this season`}</span>
-                                    <span>
+                                    <span className="text-nowrap">
                                         <i onClick={decrease} className="bi bi-chevron-left"></i>
                                         {season.start}-{season.end}
                                         <i onClick={increase} className="bi bi-chevron-right"></i>
@@ -83,10 +83,10 @@ export default function LeagueTable(props) {
                             <th scope="col"></th>
                             <th scope="col">Team</th>
                             <th className="text-center" scope="col">P</th>
-                            <th className="text-center" scope="col">W</th>
-                            <th className="text-center" scope="col">D</th>
-                            <th className="text-center" scope="col">L</th>
-                            <th className="text-center" scope="col">F:A</th>
+                            <th className="text-center d-none d-sm-table-cell" scope="col">W</th>
+                            <th className="text-center d-none d-sm-table-cell" scope="col">D</th>
+                            <th className="text-center d-none d-sm-table-cell" scope="col">L</th>
+                            <th className="text-center d-none d-sm-table-cell" scope="col">F:A</th>
                             <th className="text-center" scope="col">GD</th>
                             <th className="text-center" scope="col">PTS</th>
                         </tr>
