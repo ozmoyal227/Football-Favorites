@@ -30,12 +30,13 @@ export default function Favorites() {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*'
+                            'Access-Control-Allow-Origin': '*',
+                            'authorization': `${JSON.parse(localStorage.getItem('user')).token}`
                         },
                         body: JSON.stringify({ "id": `${removingLeague}` })
                     };
                     const res = await fetch(`${constants.API_BASE_URL}rmvLeague/${user.id}`, reqOptions);
-                    const updatedFav = await res.json();
+                    const updatedFav = res.ok && await res.json();
                     if (res.ok) {
                         setUser(prevUser => {
                             return {
@@ -44,9 +45,14 @@ export default function Favorites() {
                             }
                         })
                         setRemovingLeague(false);
+                    } else {
+                        // not authorized
+                        console.log('not authorized');
+                        setUser(constants.DEFAULT_USER);
+                        localStorage.removeItem('user');
                     }
                 } catch (error) {
-                    console.log(error)
+                    console.log(error);
                 }
             })();
 

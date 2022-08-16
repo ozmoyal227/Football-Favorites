@@ -26,7 +26,7 @@ export default function LeaguesSelect() {
             (async () => {
                 try {
                     const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/search_all_leagues.php?c=${selectedCountry}`);
-                    const data = await res.json();
+                    const data = res.ok && await res.json();
                     setLeagues(data.countries);
                 } catch (error) {
                     console.log(error);
@@ -39,13 +39,13 @@ export default function LeaguesSelect() {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*'
+                            'Access-Control-Allow-Origin': '*',
+                            'authorization': `${JSON.parse(localStorage.getItem('user')).token}`
                         },
                         body: JSON.stringify({ "id": `${selectedLeague}` })
                     };
                     const res = await fetch(`${constants.API_BASE_URL}addLeague/${user.id}`, reqOptions);
-                    const updatedFav = await res.json();
-
+                    const updatedFav = (res.status === 200) && await res.json();
                     if (res.ok) {
                         setUser(prevUser => {
                             return {
@@ -54,6 +54,11 @@ export default function LeaguesSelect() {
                             }
                         })
                         setAddingLeague(false);
+                    } else {
+                        // not authorized
+                        console.log('not authorized');
+                        setUser(constants.DEFAULT_USER);
+                        localStorage.removeItem('user');
                     }
                 } catch (error) {
                     console.log(error)
@@ -77,8 +82,7 @@ export default function LeaguesSelect() {
         (
             league.strSport === "Soccer" &&
             league.strGender === "Male" &&
-            league.strCurrentSeason === "2022-2023" &&
-            league.strComplete !== null
+            league.strCurrentSeason === "2022-2023"
         )
         ).map((league) => {
             return { label: league.strLeague, value: league.idLeague }

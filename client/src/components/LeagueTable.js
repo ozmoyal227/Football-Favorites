@@ -12,9 +12,10 @@ export default function LeagueTable(props) {
         (async () => {
             try {
                 const res = await fetch(`https://www.thesportsdb.com/api/v1/json/2/lookuptable.php?l=${props.leagueId}&s=${season.start}-${season.end}`);
-                const data = await res.json();
+                // console.log(res.headers.get("content-type").indexOf("application/json") === 0);
+                const data = (res.headers.get("content-type").indexOf("application/json") === 0) && await res.json();
                 if (data.table) {
-                    await setTeams(data.table);
+                    setTeams(data.table);
                 }
             } catch (error) {
                 console.log(error);
