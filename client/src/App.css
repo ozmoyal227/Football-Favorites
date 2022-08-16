@@ -50,7 +50,6 @@ body {
     font-size: min(3vw, 30px);
     max-width: 31%;
     -webkit-text-stroke: 0.12vw #b40421;
-
 }
 
 .dropdown-btn.active:focus,
@@ -160,6 +159,10 @@ li:hover .bi-dash-circle-dotted {
     width: 80%;
     box-shadow: 0 1px 8px 0 #000000;
     min-height: 100vh;
+}
+
+.league-name {
+    max-width: 70%;
 }
 
 .team-badge {

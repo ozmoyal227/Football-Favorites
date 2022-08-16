@@ -27,9 +27,9 @@ export default function LeagueTable(props) {
 
     const tableRows = teams ? teams.map((team) => {
         return (
-            <tr key={team.idStanding}>
+            <tr key={team.idStanding} >
                 <th className="text-center" scope="row">{team.intRank}</th>
-                <td><img src={team.strTeamBadge} className="team-badge" /> {team.strTeam}</td>
+                <td ><img src={team.strTeamBadge} className="team-badge" /> {team.strTeam}</td>
                 <td className="text-center">{team.intPlayed}</td>
                 <td className="text-center">{team.intWin}</td>
                 <td className="text-center">{team.intDraw}</td>
@@ -68,16 +68,14 @@ export default function LeagueTable(props) {
                     <thead>
                         <tr className="border-bottom-0">
                             <th colSpan="9">
-                                <div className="d-flex justify-content-between">
-                                    <span>{tableRows ? props.leagueName : `No result for ${props.leagueName} in this season`}</span>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <span className="league-name">{tableRows ? props.leagueName : `No result for ${props.leagueName} in this season`}</span>
                                     <span>
                                         <i onClick={decrease} className="bi bi-chevron-left"></i>
                                         {season.start}-{season.end}
                                         <i onClick={increase} className="bi bi-chevron-right"></i>
                                     </span>
                                 </div>
-
-
                             </th>
                         </tr>
                         <tr>
