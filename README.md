@@ -9,6 +9,6 @@ All data in this site is retrieved from https://www.thesportsdb.com/.
 It has free access and the content is maintained and updated by TheSportsDB users,
 which may cause data sometimes to be uneven or not up to date .
 
-## Run program run locally
+## Run program locally
 
 Open two terminals, Run 'npm start' on both folders 'server' and 'client'.
